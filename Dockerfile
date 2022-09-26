@@ -1,8 +1,8 @@
-FROM golang:1.16.3
+FROM golang:1.18.6
 
 ARG BUILD_RFC3339="1970-01-01T00:00:00Z"
 ARG COMMIT="local"
-ARG VERSION="v1.4.12"
+ARG VERSION="v1.5.27"
 
 #
 # IMPORTANT: This Dockerfile is used for testing, I do not recommend deploying
@@ -10,22 +10,22 @@ ARG VERSION="v1.4.12"
 #            a Docker deployment this is probably a good place to start.
 #
 
-ENV PROTOC_VER 3.15.8
-ENV PROTOC_GEN_GO_VER v1.26.0
-ENV GRPC_GO v1.1.0
+ENV PROTOC_VER 3.19.4
+ENV PROTOC_GEN_GO_VER v1.27.1
+ENV GRPC_GO v1.2.0
 
 # Base packages
 RUN apt-get update --fix-missing && apt-get -y install \
-  git build-essential zlib1g zlib1g-dev \
-  libxml2 libxml2-dev libxslt-dev locate curl \
-  libreadline6-dev libcurl4-openssl-dev git-core \
-  libssl-dev libyaml-dev openssl autoconf libtool \
-  ncurses-dev bison curl wget xsel postgresql \
-  postgresql-contrib postgresql-client libpq-dev \
-  libapr1 libaprutil1 libsvn1 \
-  libpcap-dev libsqlite3-dev libgmp3-dev \
-  zip unzip mingw-w64 binutils-mingw-w64 g++-mingw-w64 \
-  nasm gcc-multilib
+    git build-essential zlib1g zlib1g-dev \
+    libxml2 libxml2-dev libxslt-dev locate curl \
+    libreadline6-dev libcurl4-openssl-dev git-core \
+    libssl-dev libyaml-dev openssl autoconf libtool \
+    ncurses-dev bison curl wget xsel postgresql \
+    postgresql-contrib postgresql-client libpq-dev \
+    libapr1 libaprutil1 libsvn1 \
+    libpcap-dev libsqlite3-dev libgmp3-dev \
+    zip unzip mingw-w64 binutils-mingw-w64 g++-mingw-w64 \
+    nasm gcc-multilib
 
 #
 # > User
@@ -37,8 +37,8 @@ RUN mkdir -p /home/sliver/ && chown -R sliver:sliver /home/sliver
 # > Metasploit
 #
 RUN curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall \
-  && chmod 755 msfinstall \
-  && ./msfinstall
+    && chmod 755 msfinstall \
+    && ./msfinstall
 RUN mkdir -p ~/.msf4/ && touch ~/.msf4/initial_setup_complete \
     &&  su -l sliver -c 'mkdir -p ~/.msf4/ && touch ~/.msf4/initial_setup_complete'
 
