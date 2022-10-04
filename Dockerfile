@@ -1,14 +1,8 @@
-FROM golang:1.18.6
+FROM golang:1.19.1
 
 ARG BUILD_RFC3339="1970-01-01T00:00:00Z"
 ARG COMMIT="local"
-ARG VERSION="v1.5.27"
-
-#
-# IMPORTANT: This Dockerfile is used for testing, I do not recommend deploying
-#            Sliver using this container configuration! However, if you do want
-#            a Docker deployment this is probably a good place to start.
-#
+ARG VERSION="v1.5.29"
 
 ENV PROTOC_VER 3.19.4
 ENV PROTOC_GEN_GO_VER v1.27.1
